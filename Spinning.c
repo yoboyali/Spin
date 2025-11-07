@@ -1,14 +1,15 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
 #include <string.h>
 #define Height 43
-#define Width 100
-#define CubeSize 20
+#define Width 130
+#define CubeSize 30
 #define DistanceFromCam 120
 #define K1 40
-#define R 20
-#define r 10
+#define R 30
+#define r 15
 float x , y , z;
 float A , B , C;
 int Xp , Xy , Delta , Offset;
@@ -54,7 +55,7 @@ void CalculateCube(float i , float j , float k , int Character){
   z = CalculateZ(i, j, k) + DistanceFromCam;
   OoZ = 1 / z;
   Xp = (int)(Width/2 + K1 *OoZ * x *2 + Offset);
-  Xy = (int)(Height/2 + K1 * OoZ * y);
+  Xy = (int)(Height/2 + K1 * OoZ * y);  
   if(z < 0.001){return;}
   if(Xp < 0 || Xp >= Width || Xy < 0 || Xy >= Height){return;}
   Delta = Xp + Xy * Width;
@@ -82,7 +83,7 @@ void CalculateCircle(float i , float j , float k , float L){
     if (OoZ > zbuffer[Delta]) {
         zbuffer[Delta] = OoZ;
 
-        int luminanceIndex = (int)(L * 11);
+        int luminanceIndex = (int)(L * 11);  
         luminanceIndex = fmax(0, fmin(11, luminanceIndex));
 
         const char *shades = ".,-~:;=!*#$@";
@@ -91,12 +92,12 @@ void CalculateCircle(float i , float j , float k , float L){
 }
 
 int main(){
-
+  
   while(1){
     printf("\x1b[2J");
     memset(buffer , BackGround , Width * Height);
     memset(zbuffer, 0 ,sizeof(zbuffer));
-    Offset =25;
+    Offset =35;
   for(float i =- CubeSize ; i < CubeSize ; i+= 0.15){
     for(float j =- CubeSize ; j < CubeSize ; j+=0.15){
         CalculateCube( i , j , -CubeSize , '@');
@@ -107,7 +108,7 @@ int main(){
         CalculateCube(CubeSize , i , j , ',');
     }
   }
-   Offset = -25;
+   Offset = -35;
 for (float theta = 0; theta < 2*  M_PI; theta += 0.07) {
   for (float phi = 0; phi <2 *  M_PI; phi += 0.02) {
     float i = (R + r * cos(theta)) * cos(phi);
@@ -120,7 +121,7 @@ for (float theta = 0; theta < 2*  M_PI; theta += 0.07) {
 
   printf("\x1b[H");
   for(int i = 0 ; i < Width * Height ; i++){
-    putchar(i % Width ? buffer[i] : 10);
+    putchar(i % Width ? buffer[i] : 10); 
   }
   A+= 0.04;
   B+= 0.02;
