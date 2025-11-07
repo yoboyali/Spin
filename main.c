@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
 #include <string.h>
@@ -55,7 +54,7 @@ void CalculateCube(float i , float j , float k , int Character){
   z = CalculateZ(i, j, k) + DistanceFromCam;
   OoZ = 1 / z;
   Xp = (int)(Width/2 + K1 *OoZ * x *2 + Offset);
-  Xy = (int)(Height/2 + K1 * OoZ * y);  
+  Xy = (int)(Height/2 + K1 * OoZ * y);
   if(z < 0.001){return;}
   if(Xp < 0 || Xp >= Width || Xy < 0 || Xy >= Height){return;}
   Delta = Xp + Xy * Width;
@@ -83,7 +82,7 @@ void CalculateCircle(float i , float j , float k , float L){
     if (OoZ > zbuffer[Delta]) {
         zbuffer[Delta] = OoZ;
 
-        int luminanceIndex = (int)(L * 11);  
+        int luminanceIndex = (int)(L * 11);
         luminanceIndex = fmax(0, fmin(11, luminanceIndex));
 
         const char *shades = ".,-~:;=!*#$@";
@@ -92,7 +91,7 @@ void CalculateCircle(float i , float j , float k , float L){
 }
 
 int main(){
-  
+
   while(1){
     printf("\x1b[2J");
     memset(buffer , BackGround , Width * Height);
@@ -121,7 +120,7 @@ for (float theta = 0; theta < 2*  M_PI; theta += 0.07) {
 
   printf("\x1b[H");
   for(int i = 0 ; i < Width * Height ; i++){
-    putchar(i % Width ? buffer[i] : 10); 
+    putchar(i % Width ? buffer[i] : 10);
   }
   A+= 0.04;
   B+= 0.02;
