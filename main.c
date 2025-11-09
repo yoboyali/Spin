@@ -84,8 +84,7 @@ void CalculateCircle(float i , float j , float k , float L){
 
         int luminanceIndex = (int)(L * 11);
         luminanceIndex = fmax(0, fmin(11, luminanceIndex));
-
-        const char *shades = ".,-~:;=!*#$@";
+        const char *shades =".,-~:;=!*#$@";
         buffer[Delta] = shades[luminanceIndex];
     }
 }
@@ -122,9 +121,9 @@ for (float theta = 0; theta < 2*  M_PI; theta += 0.07) {
   for(int i = 0 ; i < Width * Height ; i++){
     putchar(i % Width ? buffer[i] : 10);
   }
-  A+= 0.04;
-  B+= 0.02;
-  C+= 0.00;
+  A+= 0.05;
+  B+= 0.05;
+  C+= 0.05;
   usleep(10000);
 }
  return 0;
